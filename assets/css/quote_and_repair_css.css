@@ -1,0 +1,100 @@
+.input{
+	height: 28px; 
+	font-size: 12px; 
+	padding-left: 11px; 
+	border-radius: 5px;
+}
+#inputForm{
+	font-size: 0.95rem;
+}
+.rowHeight{
+	height: 55px;
+}
+label{
+	font-size: 0.85rem;
+}
+.labelX {
+  	width : 10px;
+  	overflow:hidden;
+  	display:inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+textarea{
+	margin-left: 1rem; 
+	border-radius: 5px;
+	border: 1px solid rgba(0,0,0,.15);
+	resize: none;
+}
+th{
+	font-size: 0.95rem;
+}
+.xxx{
+	position: relative;
+    display: block;
+    float: left!important;
+    margin-right: 1rem;
+}
+.ibox .ibox-body {
+	padding: 17px 17px 5px;
+}
+page {
+   	background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    width: 29.7cm;
+    height: 21cm;
+    background-color: white;
+}
+.title{
+	width: 14cm;
+	padding-left: 5px;
+	font-size: 1rem;
+	font-family: "Times New Roman", Times, serif;
+}
+.title2{
+	width: 2.8cm;
+	padding-left: 5px;
+	font-size: 1rem;
+	font-family: "Times New Roman", Times, serif;
+	text-align: center;
+}
+#reportTable td img, #estimateTable td img{
+	margin-left: 5px;
+	margin-top: 5px;
+}
+#reportTable2 tr th, #reportTable2 tr td, #estimateTable2 tr th, #estimateTable2 tr td{
+	border: 1.25px solid rgba(0, 0, 0, .1);
+	text-align: center;
+	border-spacing: 0;
+}
+.tableTitle{
+	width: 0.75cm;
+	text-align: center;
+}
+.tableTitle1{
+	width: 1.75cm;
+	text-align: center;
+}
+.tableTitle2{
+	width: 4cm;
+	text-align: center;
+}
+.noBorderLeft{
+	padding-left: 5px;
+	text-align: left!important;
+	border-left: none!important;
+}
+.noBorderRight{
+	padding-left: 5px;
+	text-align: left!important;
+	border-right: none!important;
+}
+.noBorderLeftRight{
+	padding-left: 5px;
+	text-align: left!important;
+	border-left: none!important;
+	border-right: none!important;
+}

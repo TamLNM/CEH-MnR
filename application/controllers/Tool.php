@@ -1,0 +1,93 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Tool extends CI_Controller {
+    public $data;
+    private $ceh;
+
+    function __construct() {
+        parent::__construct();
+        if(empty($this->session->userdata('UserID'))) {
+            redirect(md5('user') . '/' . md5('login'));
+        }
+
+        $this->load->helper(array('form','url'));
+        $this->load->model("user_model", "user");
+        $this->data['menus'] = $this->menu->getMenu();
+        $this->data['parentMenuList'] = $this->menu->getParentMenu();
+        $this->ceh = $this->load->database('mssql', TRUE);
+    }
+
+    public function _remap($method) {
+        $methods = get_class_methods($this);
+
+        $skip = array("_remap", "__construct", "get_instance");
+        $a_methods = array();
+
+        if(($method == 'index')) {
+            $method = md5('index');
+        }
+
+        foreach($methods as $smethod) {
+            if (!in_array($smethod, $skip)) {
+                $a_methods[] = md5($smethod);
+                if($method == md5($smethod)) {
+                    $this->$smethod();
+                    break;
+                }
+            }
+        }
+
+        if(!in_array($method, $a_methods)) {
+            show_404();
+        }
+    }
+
+    public function tQueryExpertiseAndRepairContainer(){
+        $action = $this->input->post('iAction') ? $this->input->post('iAction') : '';
+        $this->load->model('Tools_model', "mTOOL");
+        switch($action){
+            case "loadDataInput":
+                $iCntrNo = $this->input->post('CNTRNO') ? $this->input->post('CNTRNO') : '';
+                $data_ret = $this->mTOOL->query_expertise_and_repair_container_loadDataInput($iCntrNo);
+                echo json_encode($data_ret);
+                exit();
+                break;
+            default: break;
+        };
+
+        $this->load->model("Grid_Model", "mALL");
+        $this->data['title'] = "TRUY VẤN THÔNG TIN CONT GIÁM ĐỊNH SỬA CHỮA";
+        $this->data['P_Title'] = "TRUY VẤN THÔNG TIN CONT GIÁM ĐỊNH SỬA CHỮA";
+        $this->data['P_Table'] = "MR_DT_REPAIR_CONT_DTL";
+        $this->data['P_Columns'] = json_encode ($this->mALL->load_TableColumns("tQueryExpertiseAndRepairContainer"));
+
+        $this->load->view('header', $this->data);   
+        $this->load->view('tool/query_expertise_and_repair_container', $this->data);
+        $this->load->view('footer');
+    }
+    
+    public function tChangeRepairContainerStatus(){
+        $action = $this->input->post('iAction') ? $this->input->post('iAction') : '';
+        $this->load->model('Tools_model', "mTOOL");
+        switch($action){
+            case "loadDataInput":
+                $iCntrNo = $this->input->post('CNTRNO') ? $this->input->post('CNTRNO') : '';
+                $data_ret = $this->mTOOL->change_repair_container_status_loadDataInput($iCntrNo);
+                echo json_encode($data_ret);
+                exit();
+                break;
+            case "saveDATA":
+                $formData = $this->input->post('DATA_FORM') ? $this->input->post('DATA_FORM') : array();
+                $data_ret = $this->mTOOL->change_repair_container_status_saveDATA($formData);
+                echo json_encode($data_ret);
+                exit();
+                break;
+            default: break;
+        };
+        $this->data['title'] = "THAY ĐỔI TRẠNG THÁI SỬA CHỮA CONTAINER";
+        $this->load->view('header', $this->data);   
+        $this->load->view('tool/change_repair_container_status', $this->data);
+        $this->load->view('footer');
+    }
+}
